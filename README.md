@@ -36,3 +36,12 @@ python nuke-ou.py
 - Filtrer les ressources à supprimer et/ou garder
 - Détecter les ressources non supportées par AWS Nuke
 - Désactiver le dry-run
+
+
+-----------------------------------------Comment j'ai procedé -----
+1 - creer une instance ubuntu 
+2- installer aws cli
+3 -installer aws nuke 
+4- Exporter les variable environements
+5- Installer python boto3 et les dependances
+6-lancer script
