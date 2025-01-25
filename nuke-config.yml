@@ -1,0 +1,55 @@
+# https://aws-nuke.ekristen.dev/config/
+
+regions:
+- all # https://aws-nuke.ekristen.dev/config/#all-enabled-regions
+
+blocklist:
+- "779846813173" # Exemple d'un compte ignoré. Idéalement, les comptes de prod ou le compte master de l'organization
+
+accounts:
+  # À remplacer par les comptes que vous voulez nettoyer
+  "481665124648":
+    presets:
+    - "common"
+    - "sso"
+  "886436967273":
+    presets:
+    - "common"
+    - "sso"
+
+resource-types:
+  # Specifying this in the configuration will ensure that these resources
+  # will be specifically excluded from aws-nuke during it's run.
+  excludes:
+  # Excluding some deprecated services
+  - ElasticTranscoderPipeline
+  - Cloud9Environment
+  - FMSNotificationChannel
+  - MachineLearningBranchPrediction
+  - OpsWorksCMServer
+  - OpsWorksCMBackup
+  - OpsWorksCMServerState
+  - OpsWorksApp
+  - OpsWorksUserProfile
+  - OpsWorksInstance
+  - OpsWorksLayer
+  - RoboMakerRobotApplication
+  - RoboMakerSimulationJob
+  # ....
+
+presets:
+  sso:
+    filters:
+      IAMSAMLProvider:
+      - type: "regex"
+        value: "AWSSSO_.*_DO_NOT_DELETE"
+      IAMRole:
+      - type: "glob"
+        value: "AWSReservedSSO_*"
+      IAMRolePolicyAttachment:
+      - type: "glob"
+        value: "AWSReservedSSO_*"
+  common:
+    filters:
+      IAMRole:
+      - "OrganizationAccountAccessRole"
